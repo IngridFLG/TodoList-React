@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Title } from "./components/Title";
-import { Todo } from "./components/Todo";
 import { TodoInput } from "./components/TodoInput";
 import { TodoList } from "./components/TodoList";
 
@@ -31,11 +30,27 @@ function App() {
         ]
     )
 
+    const addTodo = (title) => {
+        const lastId = todo.length > 0 ? todo[todo.length - 1].id : 1;
+
+        const newTodo = {
+            id: lastId + 1,
+            title,
+            completed: false
+        }
+
+        const todoList = [...todo]
+        todoList.push(newTodo);
+        setTodo(todoList);
+    }
+
+    
+
   return (
     <div className="bg-[#f3d2c1] min-h-screen h-full font-inter text-gray-100 flex items-center justify-center py-28 px-5">
         <div className="container flex-col max-w-xl">
             <Title/>
-            <TodoInput/>
+            <TodoInput addTodo={addTodo}/>
             <TodoList todo={todo}/>
         </div>
 
